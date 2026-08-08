@@ -213,7 +213,7 @@ export default function TimelinePage() {
 
   return <main className="timeline-page" style={{"--stage": stage.color} as React.CSSProperties}>
     <nav className="timeline-nav">
-      <a className="brand" href={`${BASE}/`}><span className="brand-mark">YC</span><span>易链 · SOP</span></a>
+      <a className="brand" href={`${BASE}/`}><span className="brand-mark">YL</span><span>易链 · SOP</span></a>
       <div className="timeline-nav-center"><a href={`${BASE}/`}>业务总览</a><b>互动全流程</b></div>
       <a className="back-link" href={`${BASE}/`}>返回总览 ↗</a>
     </nav>

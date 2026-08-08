@@ -44,7 +44,7 @@ export default function Home() {
     <main>
       <nav className="nav">
         <a className="brand" href="#top" aria-label="返回首页">
-          <span className="brand-mark">YC</span>
+          <span className="brand-mark">YL</span>
           <span>易链 · SOP</span>
         </a>
         <button className="menu-button" onClick={() => setMenu(!menu)} aria-label="打开导航">{menu ? "×" : "☰"}</button>
@@ -166,8 +166,8 @@ export default function Home() {
 
       <section className="closing">
         <span>END-TO-END VISIBILITY</span>
-        <h2>从业务委托<br />到资金回收。</h2>
-        <div className="closing-stats"><div><b>01</b><p>一个对接窗口</p></div><div><b>03</b><p>三层业务视角</p></div><div><b>100%</b><p>资金路径可追溯</p></div></div>
+        <h2>从客户接入，<br />到单笔业务闭环。</h2>
+        <div className="closing-stats"><div><b>全链路</b><p>从客户准入到业务闭环</p></div><div><b>多部门</b><p>关键节点责任与协作清晰</p></div><div><b>可追溯</b><p>业务、单据与资金状态留痕</p></div></div>
         <a href="#top">回到顶部 ↑</a>
       </section>
 
