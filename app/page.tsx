@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const chapters = [
   { id: "scene", no: "01", title: "业务场景" },
   { id: "structure", no: "02", title: "业务结构" },
@@ -48,15 +50,16 @@ export default function Home() {
         <button className="menu-button" onClick={() => setMenu(!menu)} aria-label="打开导航">{menu ? "×" : "☰"}</button>
         <div className={`nav-links ${menu ? "open" : ""}`}>
           {chapters.map((item) => <a key={item.id} href={`#${item.id}`} onClick={() => setMenu(false)}>{item.no} {item.title}</a>)}
+          <a href={`${BASE}/timeline/`}>04 互动全流程</a>
         </div>
         <a className="nav-cta" href="#journey">开始演示 <span>↗</span></a>
       </nav>
 
       <section className="hero" id="top">
         <div className="orb orb-a" /><div className="orb orb-b" />
-        <div className="eyebrow"><span /> 公司全流程 SOP · 2026</div>
-        <h1>让复杂的业务<br /><em>一眼看懂。</em></h1>
-        <p className="hero-copy">从一笔外贸订单，到一次完整的资金闭环。<br />我们把业务、角色与资金，放进同一条清晰的轨道。</p>
+        <div className="eyebrow"><span /> COMPANY WORKFLOW / 2026</div>
+        <h1>外贸供应链<br /><em>全流程 SOP</em></h1>
+        <p className="hero-copy">业务场景、参与主体与资金路径<br />从服务委托到客户回款的完整工作视图</p>
         <a className="primary" href="#journey">进入全流程 <span>↓</span></a>
 
         <div className="hero-flow" aria-label="业务全流程概览">
@@ -72,29 +75,32 @@ export default function Home() {
 
       <section className="journey-intro" id="journey">
         <span className="section-kicker">THE JOURNEY</span>
-        <h2>一条链路，三层视角</h2>
-        <p>先看业务如何发生，再看各方如何协作，最后追踪每一笔资金的去向。</p>
+        <h2>三张图，讲清一条业务链</h2>
+        <p>业务如何发生、各方如何协作、资金如何完成闭环。</p>
       </section>
 
       <section className="chapter scene" id="scene">
         <aside className="chapter-index"><b>01</b><span>BUSINESS SCENARIO</span></aside>
         <div className="chapter-content">
           <div className="chapter-head">
-            <div><span className="tag">业务场景</span><h2>赋能中心，<br />是整条链路的连接器。</h2></div>
-            <p>外贸企业只需要对接一个窗口。赋能中心负责将订舱、报关、拖车、保险与舱单等复杂服务，流转给专业供应商并统一结算。</p>
+            <div><span className="tag">业务场景</span><h2>从外贸出货，<br />看平台如何参与。</h2></div>
+            <p>外贸企业在出货环节进入国际物流流程。赋能中心接收企业的订舱与物流费结算需求：订舱委托分发给指定货代并由平台先行结算；报关、舱单与保险由易航道自营主体承接。</p>
           </div>
 
           <div className="flow-stage scene-stage">
-            <div className="core-flow">
-              <Node label="外贸企业" tone="navy" sub="发起委托" /><Arrow />
-              <Node label="赋能中心" tone="coral" sub="统一承接" /><Arrow />
-              <Node label="物流" tone="mint" sub="全程履约" />
+            <div className="trade-label">外贸企业全流程 · 平台在物流出货环节切入</div>
+            <div className="trade-flow">
+              {['卖方接单', '生产备货', '物流出货', '贸易结算', '买方收货'].map((item,index)=><div key={item} className={index===2?"active":""}><span>0{index+1}</span><b>{item}</b>{index<4&&<i>→</i>}</div>)}
             </div>
-            <div className="service-cluster">
-              <span className="cluster-label">专业服务矩阵</span>
-              {['订舱', '报关', '拖车', '海运险', '舱单'].map((item, index) => <div key={item} style={{'--i': index} as React.CSSProperties}>{item}</div>)}
+            <div className="platform-entry">
+              <Node label="外贸企业" tone="navy" sub="委托订舱与物流费结算" /><Arrow />
+              <Node label="赋能中心" tone="coral" sub="统一入口 · 业务归集" /><Arrow />
+              <div className="service-model">
+                <div className="settlement-service"><span>结算业务</span><b>订舱代理</b><small>委托分发指定货代 · 平台先行结算</small></div>
+                <div className="self-service"><span>易航道自营</span><b>报关 · 舱单 · 保险</b><small>由公司自有主体直接承接</small></div>
+              </div>
             </div>
-            <div className="flow-note"><span>↗</span><div><b>价值核心</b><p>业务流转 + 账期结算，一站式完成</p></div></div>
+            <div className="flow-note"><span>↗</span><div><b>平台价值</b><p>统一结算入口 · 货代前置回款 · 企业最长 180 天免息账期</p></div></div>
           </div>
           <button className="source-link" onClick={() => show('/flows/business-scene.png')}>查看原始业务图 <span>↗</span></button>
         </div>
@@ -109,7 +115,9 @@ export default function Home() {
           </div>
           <div className="structure-grid">
             <div className="party-card suppliers"><span>供应商</span>{['订舱代理 · 美元','报关 · 人民币','舱单 · 人民币','拖车公司等 · 人民币'].map(x => <b key={x}>{x}</b>)}</div>
-            <div className="delegate"><small>业务委托</small><span>→</span></div>
+            <div className="delegate reverse"><small>业务委托</small><span>←</span></div>
+            <div className="yihangdao"><small>物流服务平台</small><b>易航道</b></div>
+            <div className="delegate reverse"><small>业务委托</small><span>←</span></div>
             <div className="hub-stack">
               <div className="risk-top">银行<small>再 / 双保理</small></div>
               <div className="risk-mid">保理公司</div>
@@ -128,7 +136,7 @@ export default function Home() {
         <div className="chapter-content">
           <div className="chapter-head">
             <div><span className="tag green">资金流转</span><h2>资金有路径，<br />履约有回音。</h2></div>
-            <p>资金从保理放款出发，经过 SPV 与易航道完成物流服务支付；客户履约后，回款沿独立路径回到保理账户，形成完整闭环。</p>
+            <p>资金从保理放款出发，经 SPV 委托易航道提供物流服务。易航道向外部货代供应商支付费用，同时以公司自有主体承接报关、舱单与保险等自营业务；客户回款后形成资金闭环。</p>
           </div>
 
           <div className="money-map">
@@ -136,8 +144,13 @@ export default function Home() {
             <div className="money-row">
               <Node label="保理账户" tone="red" sub="① 客户签约，提交融资" /><Arrow />
               <Node label="SPV 公司" tone="mint" sub="② 委托易航道" /><Arrow />
-              <Node label="易航道" tone="blue" sub="③ 支付货代费用" /><Arrow />
-              <Node label="供应商" tone="navy" sub="报关 · 舱单 · 保险" />
+              <Node label="易航道" tone="blue" sub="③ 支付及承接物流服务" /><Arrow />
+              <div className="recipient-group" aria-label="物流服务承接方">
+                <span>物流服务承接方</span>
+                <div className="external"><b>供应商 A</b><small>外部货代服务</small></div>
+                <div className="external"><b>供应商 B</b><small>外部货代服务</small></div>
+                <div className="internal"><b>易航道</b><small>自营：报关 · 舱单 · 保险</small></div>
+              </div>
             </div>
             <div className="loop"><span>物流服务履约</span></div>
             <div className="money-row return">
@@ -153,7 +166,7 @@ export default function Home() {
 
       <section className="closing">
         <span>END-TO-END VISIBILITY</span>
-        <h2>看得见的流程，<br />才是可掌控的增长。</h2>
+        <h2>从业务委托<br />到资金回收。</h2>
         <div className="closing-stats"><div><b>01</b><p>一个对接窗口</p></div><div><b>03</b><p>三层业务视角</p></div><div><b>100%</b><p>资金路径可追溯</p></div></div>
         <a href="#top">回到顶部 ↑</a>
       </section>
