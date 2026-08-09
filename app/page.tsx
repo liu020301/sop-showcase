@@ -111,7 +111,7 @@ export default function Home() {
         <div className="chapter-content">
           <div className="chapter-head">
             <div><span className="tag red">保理业务结构</span><h2>以保理为核心，<br />构建供应链金融闭环。</h2></div>
-            <p>保理业务以真实物流与应收账款为基础，将客户账期需求、物流履约、保险增信和资金供给组织为完整链路。SPV 公司承担资金承接与风险隔离职能，是结构工具，而不是业务重点。</p>
+            <p>保理业务以真实物流与应收账款为基础，将客户账期需求、物流履约、保险增信和资金供给组织为完整链路。</p>
           </div>
           <div className="structure-grid">
             <div className="party-card suppliers"><span>供应商</span>{['订舱代理 · 美元','报关 · 人民币','舱单 · 人民币','拖车公司等 · 人民币'].map(x => <b key={x}>{x}</b>)}</div>
@@ -133,9 +133,9 @@ export default function Home() {
               <p>围绕企业准入、交易真实性、资金闭环与物流履约建立多层防线，让供应链金融建立在可验证、可监控、可追溯的业务基础上。</p>
             </header>
             <div className="safeguard-grid">
-              <article><i>01</i><b>保险保障</b><p>每笔应收账款由保险公司承保，以信用保险覆盖买方付款风险。</p></article>
+              <article><i>01</i><b>保险保障</b><p>每笔应收账款纳入保险保障，以信用保险覆盖买方付款风险。</p></article>
               <article><i>02</i><b>子公司股权质押</b><p>通过子公司开户、股权质押与公证安排，隔离资金归集后的关联性潜在风险。</p></article>
-              <article><i>03</i><b>前置风险管理</b><p>保险公司前置信用审核并核定额度、期限，结合海关及第三方数据判断经营情况。</p></article>
+              <article><i>03</i><b>前置风险管理</b><p>保险前置信用审核并核定额度、期限，结合海关及第三方数据判断经营情况。</p></article>
               <article><i>04</i><b>资金监管</b><p>管控回款账户，并通过银行虚拟账户体系实现资金监管、分配与闭环管理。</p></article>
               <article><i>05</i><b>安全合规交易结构</b><p>保理交易结构经过论证，保前、保中、保后材料完整且真实可核验。</p></article>
               <article><i>06</i><b>海运物流全程监控</b><p>持续监控订舱、报关、舱单、出运等关键物流节点，以履约数据印证贸易背景。</p></article>
