@@ -5,6 +5,16 @@ import "./timeline.css";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
+function TopicDetails({ topic, index }: { topic: { title: string; detail: string; output: string }; index: number }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <details open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
+      <summary><i>{String(index + 1).padStart(2, "0")}</i><b>{topic.title}</b><span>{open ? "收起详情 −" : "展开详情 ＋"}</span></summary>
+      <div><p>{topic.detail}</p><small>交接产出</small><strong>{topic.output}</strong></div>
+    </details>
+  );
+}
+
 const stages = [
   {
     no: "01", short: "获客面访", title: "从一通电话，到第一次握手", phase: "客户准入", owner: "商务客服部 · 业务拓展部 · 业务运营部", time: "第 1—3 天", color: "#d7543f",
@@ -273,7 +283,7 @@ export default function TimelinePage() {
           <aside>{verifiedInteractions[interactionGroup].departments.map((item,index)=><button key={item.name} className={interactionDept===index?"active":""} onClick={()=>setInteractionDept(index)}><b>{item.name}</b><small>{item.relation}</small><i>→</i></button>)}</aside>
           <div className="topic-list">
             <header><span>{verifiedInteractions[interactionGroup].group}</span><h3>{verifiedInteractions[interactionGroup].departments[interactionDept].name}</h3><p>{verifiedInteractions[interactionGroup].departments[interactionDept].relation}</p></header>
-            {verifiedInteractions[interactionGroup].departments[interactionDept].topics.map((topic,index)=><details key={topic.title} open={index===0}><summary><i>{String(index+1).padStart(2,"0")}</i><b>{topic.title}</b><span>展开详情 ＋</span></summary><div><p>{topic.detail}</p><small>交接产出</small><strong>{topic.output}</strong></div></details>)}
+            {verifiedInteractions[interactionGroup].departments[interactionDept].topics.map((topic,index)=><TopicDetails key={`${interactionGroup}-${interactionDept}-${topic.title}`} topic={topic} index={index} />)}
           </div>
         </div>
         <div className="review-bar"><span>流程控制</span><b>亿海融 · 信保通 · 企微 · 保理业务一览表</b><p>系统状态与线下台账双向核对，异常订单持续跟进直至闭环。</p></div>
