@@ -166,18 +166,18 @@ const verifiedInteractions = [
   ]},
   { group: "贷后阶段", departments: [
     { name: "履约服务部", relation: "应收对账与保后材料上传", topics: [
-      { title: "应收对账与客户确认", detail: "履约客服提前提醒还款日期和应付总金额；履约服务部开展应收对账，生成费用确认单并推送客户确认。", output: "应收对账结果 · 客户确认的费用确认单" },
-      { title: "保后材料上传", detail: "客户确认账单、财务开具应收发票后，履约服务部归集费用确认单、应收发票与提单并上传，缺失或异常材料持续补齐。", output: "费用确认单 · 应收发票 · 提单" },
+      { title: "应收对账与客户确认", detail: "履约客服提前提醒还款日期和应付总金额；履约服务部完成应收对账，生成费用确认单并推送客户确认，确认结果作为资产运营部后续保后审核的资料基础。", output: "客户确认的费用确认单 → 资产运营部" },
+      { title: "保后材料交接", detail: "客户确认账单、财务开具应收发票后，履约服务部归集费用确认单、应收发票与提单并上传至亿海融，交由资产运营部审核；收到异常反馈后负责补充或修正。", output: "费用确认单 · 应收发票 · 提单 → 资产运营部" },
     ]},
     { name: "资产运营部", relation: "保后材料审核与推送", topics: [
       { title: "保后审核", detail: "资产运营部核验费用确认单、应收发票与提单是否齐全、信息是否一致；发现问题退回履约服务部补充或修正。", output: "保后审核结果 · 异常反馈" },
       { title: "推送资方", detail: "保后材料审核通过后，由资产运营部在规定时限内推送资方，并持续跟进资方审核结果。", output: "保后材料推送记录 · 资方审核结果" },
     ]},
     { name: "财务部", relation: "应收开票与客户回款确认", topics: [
-      { title: "开票与回款确认", detail: "根据客户确认的费用确认单开具应收发票；客户回款后确认到账信息并同步相关部门。", output: "应收发票 · 客户回款信息" },
+      { title: "开票与回款状态同步", detail: "财务部根据客户确认的费用确认单开具应收发票；客户回款后确认到账金额与时间，并将回款状态同步资产运营部，用于核对业务闭环进度。", output: "应收发票 · 回款状态 → 资产运营部" },
     ]},
     { name: "结算部", relation: "货代发票与付款凭证", topics: [
-      { title: "水单粘贴", detail: "负责粘贴货代发票水单并维护相关付款凭证，确保结算材料留痕完整。", output: "货代发票水单 · 付款凭证" },
+      { title: "付款凭证按需核验", detail: "结算部负责粘贴货代发票水单并维护付款凭证；资产运营部在保后审核中对付款信息存在疑问时发起核验，结算部反馈对应凭证及核验结果。", output: "核验请求 ↔ 货代发票水单 · 付款凭证" },
     ]},
     { name: "资方", relation: "保后材料接收与审核", topics: [
       { title: "保后审核反馈", detail: "接收资产运营部推送的保后材料并完成审核；如有缺失或异常，反馈补充要求。", output: "资方审核结果 · 补充要求" },
@@ -282,7 +282,7 @@ export default function TimelinePage() {
         <div className="explorer-body">
           <aside>{verifiedInteractions[interactionGroup].departments.map((item,index)=><button key={item.name} className={interactionDept===index?"active":""} onClick={()=>setInteractionDept(index)}><b>{item.name}</b><small>{item.relation}</small><i>→</i></button>)}</aside>
           <div className="topic-list">
-            <header><span>{verifiedInteractions[interactionGroup].group}</span><h3>{verifiedInteractions[interactionGroup].departments[interactionDept].name}</h3><p>{verifiedInteractions[interactionGroup].departments[interactionDept].relation}</p></header>
+            <header><span>{verifiedInteractions[interactionGroup].group}</span><h3>{verifiedInteractions[interactionGroup].departments[interactionDept].name}</h3><p>{verifiedInteractions[interactionGroup].departments[interactionDept].relation}</p><div className="collaboration-link" style={{display:"inline-flex",marginTop:14,padding:"7px 10px",background:"#dcebe7",color:"#2d7774",font:"700 10px/1.2 monospace",letterSpacing:".08em"}}>{verifiedInteractions[interactionGroup].group === "资产运营部内" || verifiedInteractions[interactionGroup].departments[interactionDept].name === "资产运营部" ? "资产运营部内部承接" : `${verifiedInteractions[interactionGroup].departments[interactionDept].name} ↔ 资产运营部`}</div></header>
             {verifiedInteractions[interactionGroup].departments[interactionDept].topics.map((topic,index)=><TopicDetails key={`${interactionGroup}-${interactionDept}-${topic.title}`} topic={topic} index={index} />)}
           </div>
         </div>
